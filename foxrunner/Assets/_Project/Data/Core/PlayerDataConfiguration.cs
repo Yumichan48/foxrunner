@@ -2,6 +2,7 @@ using UnityEngine;
 using FoxRunner.Progression;
 using FoxRunner.Currency;
 using FoxRunner.Equipment;
+using FoxRunner.Crafting;
 
 namespace FoxRunner.Data
 {
@@ -32,6 +33,9 @@ namespace FoxRunner.Data
 
         [Tooltip("Equipment system configuration")]
         public EquipmentConfiguration equipmentConfig;
+
+        [Tooltip("Crafting system configuration")]
+        public CraftingConfiguration craftingConfig;
 
         // NOTE: Additional system configurations will be added as systems are implemented
         // [Tooltip("Companion system configuration")]
@@ -69,6 +73,9 @@ namespace FoxRunner.Data
 
             if (!equipmentConfig)
                 Debug.LogWarning("[PlayerDataConfiguration] Equipment configuration missing!");
+
+            if (!craftingConfig)
+                Debug.LogWarning("[PlayerDataConfiguration] Crafting configuration missing!");
 
             // NOTE: Validation for future systems will be re-enabled as they are implemented
             // if (!companionConfig)

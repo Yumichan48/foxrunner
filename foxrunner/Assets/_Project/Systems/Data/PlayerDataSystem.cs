@@ -4,6 +4,7 @@ using UnityEngine;
 using FoxRunner.Progression;
 using FoxRunner.Equipment;
 using FoxRunner.Currency;
+using FoxRunner.Crafting;
 
 namespace FoxRunner.Data
 {
@@ -31,6 +32,7 @@ namespace FoxRunner.Data
         private ExperienceSystem experienceSystem;
         private CurrencySystem currencySystem;
         private EquipmentSystem equipmentSystem;
+        private CraftingSystem craftingSystem;
         #endregion
 
         #region Game Session Data
@@ -55,6 +57,7 @@ namespace FoxRunner.Data
         public ExperienceSystem Experience => experienceSystem;
         public CurrencySystem Currency => currencySystem;
         public EquipmentSystem Equipment => equipmentSystem;
+        public CraftingSystem Crafting => craftingSystem;
         public GameSessionData CurrentSession => currentSession;
         public float SessionPlayTime => sessionPlayTime;
         #endregion
@@ -112,13 +115,32 @@ namespace FoxRunner.Data
 
         private void InitializeSystems()
         {
-            // Initialize existing subsystems only
+            // Initialize existing subsystems
             experienceSystem = new ExperienceSystem(config.experienceConfig);
             currencySystem = new CurrencySystem(config.currencyConfig);
             equipmentSystem = new EquipmentSystem(config.equipmentConfig);
 
+            // Initialize crafting system
+            InitializeCraftingSystem();
+
             // Subscribe to system events
             SubscribeToSystemEvents();
+        }
+
+        private void InitializeCraftingSystem()
+        {
+            GameObject craftingGO = new GameObject("CraftingSystem");
+            craftingGO.transform.SetParent(transform);
+            craftingSystem = craftingGO.AddComponent<CraftingSystem>();
+
+            // Set configuration through reflection or add a configuration setter
+            var configField = typeof(CraftingSystem).GetField("config", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
+            if (configField != null)
+            {
+                configField.SetValue(craftingSystem, config.craftingConfig);
+            }
+
+            craftingSystem.Initialize();
         }
 
         private void SubscribeToSystemEvents()
@@ -138,6 +160,7 @@ namespace FoxRunner.Data
             experienceSystem?.Update();
             currencySystem?.Update();
             equipmentSystem?.Update();
+            // CraftingSystem updates itself in its Update method
         }
 
         private void UpdateSessionTime()
@@ -314,7 +337,8 @@ namespace FoxRunner.Data
                     statistics = statistics,
                     experienceData = experienceSystem.GetSaveData(),
                     currencyData = currencySystem.GetSaveData(),
-                    equipmentData = equipmentSystem.GetSaveData()
+                    equipmentData = equipmentSystem.GetSaveData(),
+                    craftingData = craftingSystem.GetSaveData()
                 };
 
                 string json = JsonUtility.ToJson(saveData, true);
@@ -367,6 +391,7 @@ namespace FoxRunner.Data
             experienceSystem.LoadFromSaveData(null);
             currencySystem.LoadFromSaveData(null);
             equipmentSystem.LoadFromSaveData(null);
+            craftingSystem.LoadFromSaveData(null);
         }
 
         private void LoadDataFromSave(PlayerSaveData saveData)
@@ -375,6 +400,7 @@ namespace FoxRunner.Data
             experienceSystem.LoadFromSaveData(saveData.experienceData);
             currencySystem.LoadFromSaveData(saveData.currencyData);
             equipmentSystem.LoadFromSaveData(saveData.equipmentData);
+            craftingSystem.LoadFromSaveData(saveData.craftingData);
         }
 
         private void MigrateSaveData(PlayerSaveData saveData)

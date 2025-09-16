@@ -19,6 +19,7 @@ namespace FoxRunner.Data
         public ExperienceSaveData experienceData;
         public CurrencySaveData currencyData;
         public EquipmentSaveData equipmentData;
+        public CraftingSaveData craftingData;
         public CompanionSaveData companionData;
         public VillageSaveData villageData;
         public AscensionSaveData ascensionData;
@@ -357,6 +358,29 @@ namespace FoxRunner.Data
         public Dictionary<SeasonType, int> seasonalLevels = new Dictionary<SeasonType, int>();
         public Dictionary<SeasonType, bool> bossesDefeated = new Dictionary<SeasonType, bool>();
         public Dictionary<SeasonType, List<string>> unlockedAreas = new Dictionary<SeasonType, List<string>>();
+    }
+    #endregion
+
+    #region Crafting System
+    [Serializable]
+    public class CraftingSaveData
+    {
+        public Dictionary<CraftingStationType, int> stationLevels = new Dictionary<CraftingStationType, int>();
+        public Dictionary<CraftingStationType, int> masteryLevels = new Dictionary<CraftingStationType, int>();
+        public Dictionary<CraftingStationType, long> masteryExperience = new Dictionary<CraftingStationType, long>();
+        public Dictionary<string, bool> knownRecipes = new Dictionary<string, bool>();
+        public Dictionary<string, int> materialInventory = new Dictionary<string, int>();
+        public int totalItemsCrafted = 0;
+    }
+
+    public enum CraftingStationType
+    {
+        None,
+        Forge,           // Weapons, armor, tools
+        AlchemyLab,      // Potions, enchantments, transmutation
+        EnchantingTable, // Magical enhancements, runes
+        Workshop,        // Accessories, mechanical items
+        SacredAltar      // Divine items, ultimate equipment
     }
     #endregion
 
