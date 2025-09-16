@@ -1,0 +1,68 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!78 &1
+TagManager:
+  serializedVersion: 2
+  tags:
+  - Ground
+  - Collectible
+  - Obstacle
+  - Enemy
+  - Checkpoint
+  - Portal
+  - PowerUp
+  layers:
+  - Default
+  - TransparentFX
+  - Ignore Raycast
+  - 
+  - Water
+  - UI
+  - 
+  - 
+  - Player
+  - Ground
+  - 'Collectibles '
+  - Obstacles
+  - Enemies
+  - Platforms
+  - Background
+  - Foreground
+  - Interactive
+  - Triggers
+  - DeathZone
+  - SafeZone
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  m_SortingLayers:
+  - name: Default
+    uniqueID: 0
+    locked: 0
+  - name: Background
+    uniqueID: 3024088633
+    locked: 0
+  - name: Environment
+    uniqueID: 1738128183
+    locked: 0
+  - name: Characters
+    uniqueID: 2650652917
+    locked: 0
+  - name: Collectibles
+    uniqueID: 1345310139
+    locked: 0
+  - name: Effects
+    uniqueID: 64746937
+    locked: 0
+  - name: UI
+    uniqueID: 1696654451
+    locked: 0
